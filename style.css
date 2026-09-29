@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #050505;
+    --card: rgba(255, 255, 255, 0.045);
+    --border: rgba(255, 255, 255, 0.09);
+    --text: #ffffff;
+    --muted: #888888;
+    --accent: #8b5cf6;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(139, 92, 246, 0.12),
+            transparent 35%
+        ),
+        #050505;
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 80%
+    );
+}
+
+.glow {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+.glow-1 {
+    background: #7c3aed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.glow-2 {
+    background: #2563eb;
+    bottom: -300px;
+    right: -200px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    width: min(100% - 32px, 620px);
+    margin: 0 auto;
+    padding: 70px 0 35px;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile {
+    text-align: center;
+    margin-bottom: 42px;
+}
+
+.avatar {
+    width: 105px;
+    height: 105px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #080808
+        );
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 0 0 7px rgba(255,255,255,0.02),
+        0 0 60px rgba(139,92,246,0.15);
+
+    position: relative;
+
+    animation: avatarFloat 5s ease-in-out infinite;
+}
+
+.avatar::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+
+    background: linear-gradient(
+        135deg,
+        rgba(139,92,246,0.8),
+        transparent 40%,
+        rgba(255,255,255,0.15)
+    );
+
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.avatar span {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -2px;
+
+    background: linear-gradient(
+        135deg,
+        #fff,
+        #777
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@keyframes avatarFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.profile h1 {
+    font-size: clamp(30px, 7vw, 42px);
+    font-weight: 800;
+    letter-spacing: -2px;
+
+    margin-bottom: 10px;
+}
+
+.description {
+    max-width: 380px;
+    margin: 0 auto;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-top: 16px;
+    padding: 7px 12px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
+
+    background: rgba(255,255,255,0.035);
+
+    color: #aaa;
+    font-size: 12px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #55d66b;
+
+    box-shadow: 0 0 10px rgba(85,214,107,0.7);
+
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.link-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 72px;
+    padding: 13px 16px;
+
+    text-decoration: none;
+    color: white;
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    background: var(--card);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.link-card::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 20%,
+            rgba(255,255,255,0.05),
+            transparent 80%
+        );
+
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.link-card:hover::before {
+    transform: translateX(100%);
+}
+
+.link-card:hover {
+    transform: translateY(-3px) scale(1.01);
+
+    border-color: rgba(139,92,246,0.35);
+
+    background: rgba(255,255,255,0.065);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,0.35),
+        0 0 30px rgba(139,92,246,0.07);
+}
+
+.link-card:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   ICONS
+========================= */
+
+.icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 14px;
+
+    border-radius: 13px;
+
+    font-weight: 800;
+    font-size: 17px;
+
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.telegram {
+    font-size: 20px;
+}
+
+.youtube {
+    font-size: 17px;
+}
+
+.instagram {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.vk {
+    font-size: 13px;
+}
+
+
+/* =========================
+   LINK TEXT
+========================= */
+
+.link-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.link-info strong {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.link-info span {
+    color: #777;
+
+    font-size: 12px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.arrow {
+    margin-left: auto;
+    padding-left: 15px;
+
+    color: #666;
+
+    font-size: 19px;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+.link-card:hover .arrow {
+    color: #fff;
+    transform: translate(3px, -3px);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    margin-top: 35px;
+
+    color: #555;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   CURSOR EFFECT
+========================= */
+
+.cursor-glow {
+    position: fixed;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    background: rgba(139,92,246,0.05);
+
+    filter: blur(60px);
+
+    pointer-events: none;
+
+    transform: translate(-50%, -50%);
+
+    z-index: -1;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding-top: 50px;
+    }
+
+    .profile {
+        margin-bottom: 32px;
+    }
+
+    .avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .profile h1 {
+        font-size: 32px;
+    }
+
+    .link-card {
+        min-height: 68px;
+        border-radius: 16px;
+    }
+
+    .icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+    }
+
+    .cursor-glow {
+        display: none;
+    }
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
